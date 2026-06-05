@@ -11,6 +11,7 @@ public class TablaHash<K, V> {
     private ListaEnlazada<Entrada<K, V>>[] tabla;
     private int capacidad;
     private int tamaño;
+    private double factorCarga;
     
     private static class Entrada<K, V> {
         K clave;
@@ -26,6 +27,7 @@ public class TablaHash<K, V> {
         this.capacidad = 16;
         this.tabla = new ListaEnlazada[capacidad];
         this.tamaño = 0;
+        this.factorCarga = 0.75;
         
         for (int i = 0; i < capacidad; i++) {
             tabla[i] = new ListaEnlazada<>();
@@ -36,6 +38,7 @@ public class TablaHash<K, V> {
         this.capacidad = capacidad;
         this.tabla = new ListaEnlazada[capacidad];
         this.tamaño = 0;
+        this.factorCarga = 0.75;
         
         for (int i = 0; i < capacidad; i++) {
             tabla[i] = new ListaEnlazada<>();
@@ -46,7 +49,31 @@ public class TablaHash<K, V> {
         return Math.abs(clave.hashCode() % capacidad);
     }
     
+    private void rehash() {
+        int nuevaCapacidad = capacidad * 2;
+        ListaEnlazada<Entrada<K, V>>[] nuevaTabla = new ListaEnlazada[nuevaCapacidad];
+        
+        for (int i = 0; i < nuevaCapacidad; i++) {
+            nuevaTabla[i] = new ListaEnlazada<>();
+        }
+        
+        for (int i = 0; i < capacidad; i++) {
+            for (int j = 0; j < tabla[i].getTamaño(); j++) {
+                Entrada<K, V> entrada = tabla[i].obtener(j);
+                int nuevoIndice = Math.abs(entrada.clave.hashCode() % nuevaCapacidad);
+                nuevaTabla[nuevoIndice].agregar(entrada);
+            }
+        }
+        
+        tabla = nuevaTabla;
+        capacidad = nuevaCapacidad;
+    }
+    
     public void insertar(K clave, V valor) {
+        if ((double) tamaño / capacidad > factorCarga) {
+            rehash();
+        }
+        
         int indice = hash(clave);
         ListaEnlazada<Entrada<K, V>> lista = tabla[indice];
         

@@ -9,10 +9,10 @@ public class Sinapsis {
     private Neurona origen;
     private Neurona destino;
     private double distancia;
-    private int idNeurotransmisor;
+    private String idNeurotransmisor;
     private double coeficienteEficiencia;
     
-    public Sinapsis(Neurona origen, Neurona destino, double distancia, int idNeurotransmisor, double coeficienteEficiencia) {
+    public Sinapsis(Neurona origen, Neurona destino, double distancia, String idNeurotransmisor, double coeficienteEficiencia) {
         this.origen = origen;
         this.destino = destino;
         this.distancia = distancia;
@@ -32,7 +32,7 @@ public class Sinapsis {
         return distancia;
     }
     
-    public int getIdNeurotransmisor() {
+    public String getIdNeurotransmisor() {
         return idNeurotransmisor;
     }
     
@@ -52,7 +52,7 @@ public class Sinapsis {
         this.distancia = distancia;
     }
     
-    public void setIdNeurotransmisor(int idNeurotransmisor) {
+    public void setIdNeurotransmisor(String idNeurotransmisor) {
         this.idNeurotransmisor = idNeurotransmisor;
     }
     
@@ -64,6 +64,7 @@ public class Sinapsis {
     public String toString() {
         return "Sinapsis{origen=" + (origen != null ? origen.getId() : "null") + 
                ", destino=" + (destino != null ? destino.getId() : "null") + 
-               ", distancia=" + distancia + "}";
+               ", distancia=" + distancia + 
+               ", idNeurotransmisor=" + idNeurotransmisor + "}";
     }
 }

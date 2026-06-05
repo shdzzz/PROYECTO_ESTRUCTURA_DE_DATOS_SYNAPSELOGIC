@@ -62,8 +62,14 @@ public class ListaEnlazada<T> {
         int indice = 0;
         
         while (actual != null) {
-            if (actual.getDato().equals(dato)) {
-                return indice;
+            if (dato == null) {
+                if (actual.getDato() == null) {
+                    return indice;
+                }
+            } else {
+                if (actual.getDato() != null && actual.getDato().equals(dato)) {
+                    return indice;
+                }
             }
             actual = actual.getSiguiente();
             indice++;
