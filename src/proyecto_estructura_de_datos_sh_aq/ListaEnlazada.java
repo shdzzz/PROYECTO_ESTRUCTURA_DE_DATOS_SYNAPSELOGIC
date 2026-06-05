@@ -57,6 +57,23 @@ public class ListaEnlazada<T> {
         return actual.getDato();
     }
     
+    public T obtenerPrimero() {
+        if (estaVacia()) {
+            throw new IndexOutOfBoundsException("Lista vacia");
+        }
+        return cabeza.getDato();
+    }
+    
+    public T eliminarPrimero() {
+        if (estaVacia()) {
+            throw new IndexOutOfBoundsException("Lista vacia");
+        }
+        T dato = cabeza.getDato();
+        cabeza = cabeza.getSiguiente();
+        tamaño--;
+        return dato;
+    }
+    
     public int buscar(T dato) {
         Nodo<T> actual = cabeza;
         int indice = 0;
