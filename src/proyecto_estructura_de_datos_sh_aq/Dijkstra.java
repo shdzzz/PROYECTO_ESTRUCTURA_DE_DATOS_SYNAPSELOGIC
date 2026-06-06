@@ -30,6 +30,17 @@ public class Dijkstra {
     public static ResultadoDijkstra buscar(TablaHash<Integer, ListaEnlazada<Sinapsis>> grafo, 
                                            TablaHash<String, Neurotransmisor> diccionarioNeuro, 
                                            int idOrigen) {
+        System.out.println("DEBUG: Dijkstra iniciado. Diccionario tiene " + 
+                          (diccionarioNeuro != null ? diccionarioNeuro.getTamaño() : 0) + " neurotransmisores");
+        
+        if (diccionarioNeuro != null) {
+            Object[] claves = diccionarioNeuro.getClaves();
+            System.out.println("DEBUG: IDs en diccionario: ");
+            for (int i = 0; i < claves.length; i++) {
+                System.out.println("  - " + claves[i]);
+            }
+        }
+        
         TablaHash<Integer, Double> distancias = new TablaHash<>();
         TablaHash<Integer, Integer> anteriores = new TablaHash<>();
         TablaHash<Integer, Boolean> visitados = new TablaHash<>();
@@ -88,6 +99,7 @@ public class Dijkstra {
         Neurotransmisor neuro = diccionarioNeuro.obtener(idNeuro);
         
         if (neuro == null) {
+            System.err.println("WARNING: Neurotransmisor no encontrado: " + idNeuro + ". Usando distancia directa.");
             return sinapsis.getDistancia();
         }
         
@@ -99,7 +111,13 @@ public class Dijkstra {
             return Double.MAX_VALUE;
         }
         
-        return distancia / (velocidad * coeficiente);
+        double peso = distancia / (velocidad * coeficiente);
+        System.out.println("DEBUG: Sinapsis " + sinapsis.getOrigen().getId() + "->" + sinapsis.getDestino().getId() + 
+                          ", Neuro: " + idNeuro + ", Velocidad: " + velocidad + 
+                          ", Coeficiente: " + coeficiente + ", Distancia: " + distancia + 
+                          ", Peso calculado: " + peso);
+        
+        return peso;
     }
     
     /**

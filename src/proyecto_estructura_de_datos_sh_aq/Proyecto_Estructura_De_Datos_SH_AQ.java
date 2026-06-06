@@ -14,7 +14,8 @@ public class Proyecto_Estructura_De_Datos_SH_AQ {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Llamar al main de Principal para iniciar la aplicación
+        Principal.main(args);
     }
     
 }

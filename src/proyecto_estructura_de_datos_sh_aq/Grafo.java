@@ -31,7 +31,31 @@ public class Grafo {
     }
     
     public void agregarNeurotransmisor(Neurotransmisor neuro) {
-        diccionarioNeuro.insertar(neuro.getNombre(), neuro);
+        diccionarioNeuro.insertar(neuro.getId(), neuro);
+    }
+    
+    public void eliminarNeurona(int id) {
+        // Eliminar la neurona de la tabla de neuronas
+        neuronas.eliminar(id);
+        
+        // Eliminar todas las sinapsis donde esta neurona es origen
+        adyacencia.eliminar(id);
+        
+        // Eliminar todas las sinapsis donde esta neurona es destino
+        Object[] claves = adyacencia.getClaves();
+        for (int i = 0; i < claves.length; i++) {
+            Integer idOrigen = (Integer) claves[i];
+            ListaEnlazada<Sinapsis> lista = adyacencia.obtener(idOrigen);
+            if (lista != null) {
+                for (int j = 0; j < lista.getTamaño(); j++) {
+                    Sinapsis s = lista.obtener(j);
+                    if (s.getDestino().getId() == id) {
+                        lista.eliminar(j);
+                        j--; // Ajustar índice después de eliminar
+                    }
+                }
+            }
+        }
     }
     
     public Neurona obtenerNeurona(int id) {

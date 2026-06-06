@@ -6,13 +6,13 @@ package proyecto_estructura_de_datos_sh_aq;
  */
 public class Neurotransmisor {
     
-    private int id;
+    private String id;  // ← CAMBIADO de int a String
     private String nombre;
     private String efecto;
     private double velocidad;
     private String descripcion;
     
-    public Neurotransmisor(int id, String nombre, String efecto, double velocidad, String descripcion) {
+    public Neurotransmisor(String id, String nombre, String efecto, double velocidad, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.efecto = efecto;
@@ -20,7 +20,7 @@ public class Neurotransmisor {
         this.descripcion = descripcion;
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
     
@@ -40,7 +40,7 @@ public class Neurotransmisor {
         return descripcion;
     }
     
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     
