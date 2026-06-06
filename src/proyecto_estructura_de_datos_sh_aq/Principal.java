@@ -7,7 +7,7 @@ package proyecto_estructura_de_datos_sh_aq;
 
 /**
  *
- * @author noahh
+ * @author santiagoh
  */
 
 import javax.swing.JFileChooser;
